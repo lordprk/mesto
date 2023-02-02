@@ -13,7 +13,7 @@ let jobInput = document.querySelector(".popup__input_caption");
 let profileName = document.querySelector(".profile__title");
 let profileJob = document.querySelector(".profile__subtitle");
 let popupOpenButton = document.querySelector(".profile__edit-button");
-let popupCloseButton = document.querySelector(".popup__close-button");
+let popupCloseButton = document.querySelector(".popup__button-close");
 
 let popupOpen = function () {
   popupElement.classList.add("popup_opened");
