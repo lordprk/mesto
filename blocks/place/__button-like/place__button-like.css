@@ -1,0 +1,23 @@
+.place__button-like {
+  outline: none;
+  border: none;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/Unlike.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  transition: opacity 0.25s ease-in-out;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.place__button-like:hover {
+  opacity: 0.5;
+}
+
+@media (hover: none) {
+  .place__button-like:hover {
+    opacity: 1;
+  }
+}
