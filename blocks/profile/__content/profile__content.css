@@ -1,10 +1,13 @@
 .profile__content {
   display: flex;
-  align-self: center;
+  flex-direction: row;
+  max-width: 486px;
+  align-items: center;
 }
-
-@media screen and (max-width: 569px) {
-  .profile__contant {
+@media screen and (max-width: 650px) {
+  .profile__content {
+    max-width: 320px;
     flex-direction: column;
+    justify-content: center;
   }
 }
