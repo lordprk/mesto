@@ -1,8 +1,8 @@
 //Переменные
 let popupElement = document.querySelector(".popup");
 let formElement = document.querySelector(".popup__form");
-let nameInput = document.querySelector(".popup__input_name_profile_name");
-let jobInput = document.querySelector(".popup__input_name_profile_caption");
+let nameInput = document.querySelector(".popup__input_name_profile-name");
+let jobInput = document.querySelector(".popup__input_name_profile-caption");
 let profileName = document.querySelector(".profile__title");
 let profileJob = document.querySelector(".profile__subtitle");
 let popupOpenButton = document.querySelector(".profile__edit-button");
