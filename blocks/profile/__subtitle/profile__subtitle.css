@@ -10,12 +10,17 @@
   overflow: hidden;
   max-width: 500px;
 }
+@media screen and (max-width: 900px) {
+  .profile__subtitle {
+    max-width: 300px;
+  }
+}
 @media screen and (max-width: 650px) {
   .profile__subtitle {
-    max-width: 320px;
+    max-width: 240px;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    margin-top: 9px;
+    margin-top: 14px;
   }
 }

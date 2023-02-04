@@ -22,75 +22,103 @@
           <div class="profile__bio">
             <div class="profile__info">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" type="button"></button>
+              <button
+                class="profile__edit-button"
+                aria-label="Изменить"
+                type="button"
+              ></button>
             </div>
             <p class="profile__subtitle">Иследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button" type="button"></button>
+        <button
+          class="profile__add-button"
+          aria-label="Добавить"
+          type="button"
+        ></button>
       </section>
       <section class="places">
         <article class="place">
           <img
             class="place__image"
-            src="./images/zamok.png"
+            src="./images/zamok.jpg"
             alt="Карачаевские виды"
           />
           <div class="place__info">
             <h2 class="place__title">Карачаевск</h2>
-            <button class="place__button-like"></button>
+            <button
+              class="place__button-like"
+              aria-label="Лайк"
+              type="button"
+            ></button>
           </div>
         </article>
 
         <article class="place">
           <img
             class="place__image"
-            src="./images/gora.png"
+            src="./images/gora.jpg"
             alt="Поля и туман"
           />
           <div class="place__info">
             <h2 class="place__title">Гора Эльбрус</h2>
-            <button class="place__button-like"></button>
+            <button
+              class="place__button-like"
+              aria-label="Лайк"
+              type="button"
+            ></button>
           </div>
         </article>
 
         <article class="place">
-          <img class="place__image" src="./images/les.png" alt="Лес с горой" />
+          <img class="place__image" src="./images/les.jpg" alt="Лес с горой" />
           <div class="place__info">
             <h2 class="place__title">Домбай</h2>
-            <button class="place__button-like"></button>
+            <button class="place__button-like" type="button"></button>
           </div>
         </article>
 
         <article class="place">
           <img
             class="place__image"
-            src="./images/gora.png"
+            src="./images/gora.jpg"
             alt="Поля и туман"
           />
           <div class="place__info">
             <h2 class="place__title">Гора Эльбрус</h2>
-            <button class="place__button-like"></button>
+            <button
+              class="place__button-like"
+              aria-label="Лайк"
+              type="button"
+            ></button>
           </div>
         </article>
 
         <article class="place">
-          <img class="place__image" src="./images/les.png" alt="Лес с горой" />
+          <img class="place__image" src="./images/les.jpg" alt="Лес с горой" />
           <div class="place__info">
             <h2 class="place__title">Домбай</h2>
-            <button class="place__button-like"></button>
+            <button
+              class="place__button-like"
+              aria-label="Лайк"
+              type="button"
+            ></button>
           </div>
         </article>
 
         <article class="place">
           <img
             class="place__image"
-            src="./images/zamok.png"
+            src="./images/zamok.jpg"
             alt="Карачаевские виды"
           />
           <div class="place__info">
             <h2 class="place__title">Карачаево-Черкессия</h2>
-            <button class="place__button-like"></button>
+            <button
+              class="place__button-like"
+              aria-label="Лайк"
+              type="button"
+            ></button>
           </div>
         </article>
       </section>
@@ -105,14 +133,14 @@
         <form action="#" class="popup__form" name="form-info">
           <input
             type="text"
-            name="profile-name"
-            class="popup__input popup__input_name"
+            name="name"
+            class="popup__input popup__input_name_profile_name"
             placeholder="Введите имя"
           />
           <input
             type="text"
-            name="profile-caption"
-            class="popup__input popup__input_caption"
+            name="caption"
+            class="popup__input popup__input_name_profile_caption"
             placeholder="Введите описание"
           />
           <button type="submit" class="popup__button-save">Сохранить</button>
