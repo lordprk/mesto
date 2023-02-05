@@ -1,8 +1,9 @@
 .place__info {
-  padding: 25px 30px 31px 21px;
+  padding: 25px 20px 25px 21px;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
   align-items: center;
   margin: 0 auto;
+  border-radius: 10px;
 }
