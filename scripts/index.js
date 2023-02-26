@@ -30,7 +30,14 @@ const imageSign = popupImage.querySelector(".popup-image__sign");
 const template = document.querySelector("#place-template");
 const cardList = document.querySelector(".places");
 const cardItem = document.querySelector(".place");
-const submitBtn = document.querySelector(".popup__button-save_type_card");
+const submitBtn = document.querySelector(".popup__save_type_card");
+
+function closeEscPopup(evt) {
+  if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup_opened");
+    closePopup(popup);
+  }
+}
 
 //Функция котрая берет данные автора и подставляет в инпуты
 const setAuthorsData = function () {
@@ -46,6 +53,17 @@ function handleFormSubmitAuthor(evt) {
   closePopup(popupAuthorElement);
 }
 
+//Закрытие попапа по внешней области
+const popupContainer = document.querySelectorAll(".popup");
+popupContainer.forEach((popup) => {
+  const closeAllPopup = popup.closest(".popup");
+  popup.addEventListener("click", function (event) {
+    if (event.target === event.currentTarget) {
+      closePopup(popup);
+    }
+  });
+});
+
 //Функция открытия добавления
 const openPopup = function (popup) {
   popup.classList.add("popup_opened");
@@ -54,17 +72,22 @@ const openPopup = function (popup) {
 //Универсальная функция закрытия popup
 const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
+
+  document.addEventListener("keyup", closeEscPopup); // слушатель клика ESC
 };
 
-
 //Результат
-popupOpenButtonAuthor.addEventListener("click",()=>{setAuthorsData(); openPopup(popupAuthorElement)});
-popupCloseButtonAuthor.addEventListener("click",()=> closePopup(popupAuthorElement));
+popupOpenButtonAuthor.addEventListener("click", () => {
+  setAuthorsData();
+  openPopup(popupAuthorElement);
+});
+popupCloseButtonAuthor.addEventListener("click", () =>
+  closePopup(popupAuthorElement)
+);
 formAuthor.addEventListener("submit", handleFormSubmitAuthor);
-popupCardOpenBtn.addEventListener("click",()=> openPopup(popupCard));
-popupCardCloseBtn.addEventListener("click",()=> closePopup(popupCard));
-popupImageCloseBtn.addEventListener("click",()=> closePopup(popupImage));
-
+popupCardOpenBtn.addEventListener("click", () => openPopup(popupCard));
+popupCardCloseBtn.addEventListener("click", () => closePopup(popupCard));
+popupImageCloseBtn.addEventListener("click", () => closePopup(popupImage));
 
 //Удаление карточек
 function deleteCard(e) {
@@ -80,7 +103,7 @@ function toggleLike(e) {
 function createCard(item) {
   const card = template.content.cloneNode(true);
   card.querySelector(".place__title").textContent = item.name;
-  const image = card.querySelector(".place__image")
+  const image = card.querySelector(".place__image");
   image.setAttribute("src", item.link);
   image.setAttribute("alt", item.name);
 
@@ -112,7 +135,7 @@ function renderCards(initialCard) {
 
 renderCards(initialCards);
 
-// Добавление карточки пользователем  
+// Добавление карточки пользователем
 formCard.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -125,5 +148,3 @@ formCard.addEventListener("submit", (e) => {
   closePopup(popupCard);
   formCard.reset();
 });
-
-
