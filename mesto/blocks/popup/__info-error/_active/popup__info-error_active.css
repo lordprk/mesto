@@ -1,0 +1,4 @@
+.popup__info-error_active {
+  border-bottom: 1px solid #ff0000;
+  opacity: 1;
+}
