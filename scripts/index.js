@@ -145,6 +145,6 @@ formCard.addEventListener("submit", (e) => {
 
   cardList.prepend(card);
   closePopup(popupCard);
-  e.submitter.classList.add('popup__save_inactive');
-  e.submitter.disabled = true;
+  e.submitter.classList.add("popup__save_inactive");
+  e.submitter.disabled = false;
 });
