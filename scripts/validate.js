@@ -3,7 +3,6 @@
 const showInputError = (formElement, inputElement, errorMessage, config) => {
   // Находим элемент ошибки внутри самой функции
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  console.log(errorElement);
   inputElement.classList.add(config.inputErrorClass);
   // Заменим содержимое span с ошибкой на переданный параметр
   errorElement.textContent = errorMessage;
@@ -36,19 +35,19 @@ const checkInputValidity = (formElement, inputElement, config) => {
     hideInputError(formElement, inputElement, config);
   }
 };
+//Нужно удалить
+//function setsubmitbutton(button, isValid) {
+//  button.disabled = !isValid;
+//}
+//console.log(setsubmitbutton)
 
-function setsubmitbutton(button, isValid) {
-  button.disabled = !isValid;
-}
 const toggleButtonState = (inputList, buttonElement, config) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList, config)) {
     // сделай кнопку неактивной
-    buttonElement.disabled = true;
     buttonElement.classList.add(config.inactiveButtonClass);
   } else {
     // иначе сделай кнопку активной
-    buttonElement.removeAttribute("disabled", "disabled");
     buttonElement.classList.remove(config.inactiveButtonClass);
   }
 };
@@ -93,19 +92,20 @@ const hasInvalidInput = (inputList) => {
 const enableValidation = (config) => {
   // Найдём все формы с указанным классом,
   // сделаем из них массив методом Array.from
-  const formList = Array.from(document.querySelectorAll(".popup"));
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
   // Переберём полученную коллекцию
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", function (evt) {
       evt.preventDefault();
     });
-    const fieldsetList = Array.from(
-      formElement.querySelectorAll(config.formSelector)
-    );
-    fieldsetList.forEach((fieldSet) => {
-      // Для каждой формы вызовем функцию setEventListeners
-      setEventListeners(fieldSet, config);
-    });
+    setEventListeners(formElement, config);
+    //const fieldsetList = Array.from(
+    //formElement.querySelectorAll(config.formSelector)
+    //);
+    //fieldsetList.forEach((fieldSet) => {
+    // Для каждой формы вызовем функцию setEventListeners
+    //setEventListeners(fieldSet, config);
+    //});
   });
 };
 

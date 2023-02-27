@@ -1,6 +1,6 @@
 //Переменные для редактирования профиля
 const popupAuthorElement = document.querySelector("#popup__author");
-const formAuthor = document.querySelector(".popup__form");
+const formAuthor = document.querySelector(".popup__form_type_author");
 const nameInput = document.querySelector(".popup__input_name_profile-name");
 const jobInput = document.querySelector(".popup__input_name_profile-caption");
 const profileName = document.querySelector(".profile__title");
@@ -54,9 +54,8 @@ function handleFormSubmitAuthor(evt) {
 }
 
 //Закрытие попапа по внешней области
-const popupContainer = document.querySelectorAll(".popup");
-popupContainer.forEach((popup) => {
-  const closeAllPopup = popup.closest(".popup");
+const popupContainers = document.querySelectorAll(".popup");
+popupContainers.forEach((popup) => {
   popup.addEventListener("click", function (event) {
     if (event.target === event.currentTarget) {
       closePopup(popup);
@@ -67,13 +66,13 @@ popupContainer.forEach((popup) => {
 //Функция открытия добавления
 const openPopup = function (popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keyup", closeEscPopup); // слушатель клика ESC
 };
 
 //Универсальная функция закрытия popup
 const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
-
-  document.addEventListener("keyup", closeEscPopup); // слушатель клика ESC
+  document.removeEventListener("keyup", closeEscPopup); // Удаление клика ESC
 };
 
 //Результат
@@ -146,5 +145,6 @@ formCard.addEventListener("submit", (e) => {
 
   cardList.prepend(card);
   closePopup(popupCard);
-  formCard.reset();
+  e.submitter.classList.add('popup__save_inactive');
+  e.submitter.disabled = true;
 });
