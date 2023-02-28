@@ -35,20 +35,20 @@ const checkInputValidity = (formElement, inputElement, config) => {
     hideInputError(formElement, inputElement, config);
   }
 };
-//Нужно удалить
-//function setsubmitbutton(button, isValid) {
-//  button.disabled = !isValid;
-//}
-//console.log(setsubmitbutton)
 
+const disableSubmitButton = (button, config) => {
+  button.classList.add(config.inactiveButtonClass);
+  button.setAttribute("disabled", true);
+};
+const enableSubmitButton = (button, config) => {
+  button.classList.remove(config.inactiveButtonClass);
+  button.removeAttribute("disabled");
+};
 const toggleButtonState = (inputList, buttonElement, config) => {
-  // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList, config)) {
-    // сделай кнопку неактивной
-    buttonElement.classList.add(config.inactiveButtonClass);
+    disableSubmitButton(buttonElement, config);
   } else {
-    // иначе сделай кнопку активной
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    enableSubmitButton(buttonElement, config);
   }
 };
 
