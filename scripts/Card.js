@@ -5,6 +5,8 @@ export default class Card {
     this._templateSelector = templateSelector;
     this._openPopupFoto = openPopupFoto;
   }
+//Собираем конструктор из функций () и свойств {}
+
 
   _getTemplate() {
     const cardElement = document
@@ -12,8 +14,10 @@ export default class Card {
       .content.querySelector(".place")
       .cloneNode(true);
 
-      return cardElement;
+    return cardElement;
   }
+//берем обьект, создаем контанту, получаем оттуда свойство, затем получаем
+//доступ к содержимому place и делаем копию, затем возвращаем константу обратно 
   
   generateCard() {
     this._element = this._getTemplate();
@@ -26,14 +30,24 @@ export default class Card {
 
     return this._element;
   }
+//беерем обьект, и в нем делаем из элемента прошлый обьект, затем ищ него
+// выбераем  place title, и читаем его имя-выводим это в имя
+//так же делаем с cardFoto-выберая из него place_image, к нему
+//добавляем ссылку и имя из альта- и возвращаем целый элемент
+
   //лайк
   _addtoggleLike(e) {
     e.target.classList.toggle("place__button-like_active");
   }
-//Удаление
+//берем кнопку с функцией event и делаем свойсто нажатия 
+//на place__button-like_active
+
+  //Удаление
   _deleteCard(e) {
     e.target.closest(".place").remove();
   }
+//берем кнопку с функцией event и делаем свойсто нажатия 
+//на .place - при нажатие удаляем файл
 
   _setEventListener() {
     this._element
@@ -46,10 +60,13 @@ export default class Card {
       .querySelector(".place__button-like")
       .addEventListener("click", this._addtoggleLike);
 
-
-
     this._element
       .querySelector(".place__button-delete")
       .addEventListener("click", this._deleteCard);
   }
 }
+//большой обьект и с функциями. 1 - берем place__image добавляем килик на 
+//нажатие картинкис именем и картинкой.??
+//2 это же элемент выбераем place__button-like и кликер который дает 
+//срабатывать this._addtoggleLike,
+//3 то же самое, только кнопка с удалялкой

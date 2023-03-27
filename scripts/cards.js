@@ -27,3 +27,5 @@ const initialCards = [
 ];
 
 export { initialCards };
+//Берем массив карточек с именем и ссылкой и экпортируем
+//в index.js 
