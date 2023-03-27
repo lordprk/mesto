@@ -9,7 +9,6 @@ export default class FormValidator {
       config.submitButtonSelector
     );
     this._formElement = formElement;
-      console.log(this._config)
   }
 //Собираем конструктор из функций () и свойств {}
 //Array это []?  
