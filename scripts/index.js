@@ -119,8 +119,8 @@ popupCloseButtonAuthor.addEventListener("click", () =>
 );
 formAuthor.addEventListener("submit", handleFormSubmitAuthor);
 popupCardOpenBtn.addEventListener("click", () =>{
-  popupCard.querySelector('.popup__save').disabled = true
-  popupCard.querySelector('.popup__save').classList.add("popup__save_inactive")
+  popupCard.querySelector(config.submitButtonSelector).disabled = true
+  popupCard.querySelector(config.submitButtonSelector).classList.add(config.inactiveButtonClass)
   openPopup(popupCard)
 });
 popupCardCloseBtn.addEventListener("click", () => closePopup(popupCard));
