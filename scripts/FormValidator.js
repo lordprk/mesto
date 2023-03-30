@@ -10,9 +10,8 @@ export default class FormValidator {
     );
     this._formElement = formElement;
   }
-//Собираем конструктор из функций () и свойств {}
-//Array это []?  
-
+  //Собираем конструктор из функций () и свойств {}
+  //Array это []?
 
   // приватный метод показа ошибки
   _showInputError(inputElement, errorMessage) {
@@ -21,8 +20,8 @@ export default class FormValidator {
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._config.errorClass);
   }
-//создание ошибки-берем функию и говорим ей смотри inputElement
-//???
+  //создание ошибки-берем функию и говорим ей смотри inputElement
+  //???
 
   // приватный метод скрытия ошибки
   _hideInputError(inputElement) {
@@ -60,7 +59,7 @@ export default class FormValidator {
     this._buttonElement.removeAttribute("disabled");
   }
 
-  // приватный метод переключения состояния кнопки
+  // публичный метод переключения состояния кнопки
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._disableSubmitButton();
@@ -73,11 +72,9 @@ export default class FormValidator {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._inputSelector.forEach((item) => (item.value = ""));
+      this._disableSubmitButton();
     });
     this._inputList = this._inputSelector;
-    //  Array.from(
-    //   this._formElement.querySelectorAll(this._inputSelector)
-    // );
     this._buttonElement = this._submitButtonSelector;
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
@@ -90,6 +87,7 @@ export default class FormValidator {
   /////
   // публичный метод настройки обработчиков событий для полей формы
   enableValidation() {
-    this._createEvent()
+    this._createEvent();
+    this._disableSubmitButton();
   }
 }

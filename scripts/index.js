@@ -11,10 +11,10 @@ const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__subtitle");
 const popupOpenButtonAuthor = document.querySelector(".profile__edit-button");
 const popupCloseButtonAuthor = document.querySelector(".popup__button-close");
-//Константы с именем написснные в camelCase = обьект document нужен для 
-//отображения js в html, querySelector-находит в документе html первый 
+//Константы с именем написснные в camelCase = обьект document нужен для
+//отображения js в html, querySelector-находит в документе html первый
 //  элемент который так называеться.
-// Если #, то это индетификатор(то есть?), если . то это класс. 
+// Если #, то это индетификатор(то есть?), если . то это класс.
 
 //Переменные для редактирования карточек
 const popupCard = document.querySelector(".popup_type_card");
@@ -33,7 +33,7 @@ const imageSign = popupImage.querySelector(".popup-image__sign");
 // к документу
 
 //Переменные для темпла
-const template = document.querySelector("#place-template");//? не используеться
+const template = document.querySelector("#place-template"); //? не используеться
 const cardList = document.querySelector(".places");
 
 const config = {
@@ -49,8 +49,7 @@ const config = {
 
 const editFormValidator = new FormValidator(config, popupAuthorElement);
 const addFormValidator = new FormValidator(config, popupCard);
-//new это соеденение constructor 
-
+//new это соеденение constructor
 
 //функция закрытия popup по нажатию на клавишу Esc
 function closeEscPopup(evt) {
@@ -61,7 +60,6 @@ function closeEscPopup(evt) {
 }
 //функция evt -ищет кнопку на закрытие: если кнопка ескейп то появляеться
 // popup ищет popup_opened и закрывет его?
-
 
 //Функция котрая берет данные автора и подставляет в инпуты
 const setAuthorsData = function () {
@@ -79,7 +77,6 @@ function handleFormSubmitAuthor(evt) {
 }
 //???
 
-
 //Закрытие попапа по внешней области
 const popupContainers = document.querySelectorAll(".popup");
 popupContainers.forEach((popup) => {
@@ -90,11 +87,9 @@ popupContainers.forEach((popup) => {
   });
 });
 
-
 //Функция открытия добавления
 const openPopup = function (popup) {
   popup.classList.add("popup_opened");
-
 
   document.addEventListener("keyup", closeEscPopup); // слушатель клика ESC
 };
@@ -111,18 +106,17 @@ const closePopup = function (popup) {
 popupOpenButtonAuthor.addEventListener("click", () => {
   setAuthorsData();
   openPopup(popupAuthorElement);
-  // popupAuthorElement.querySelector('.popup__save').disabled = true
-  // popupAuthorElement.querySelector('.popup__save').classList.add("popup__save_inactive")
 });
+
 popupCloseButtonAuthor.addEventListener("click", () =>
   closePopup(popupAuthorElement)
 );
 formAuthor.addEventListener("submit", handleFormSubmitAuthor);
-popupCardOpenBtn.addEventListener("click", () =>{
-  popupCard.querySelector(config.submitButtonSelector).disabled = true
-  popupCard.querySelector(config.submitButtonSelector).classList.add(config.inactiveButtonClass)
-  openPopup(popupCard)
+popupCardOpenBtn.addEventListener("click", () => {
+  popupCard.querySelector(config.submitButtonSelector).disabled = true;
+  openPopup(popupCard);
 });
+
 popupCardCloseBtn.addEventListener("click", () => closePopup(popupCard));
 popupImageCloseBtn.addEventListener("click", () => closePopup(popupImage));
 //подставляем все значения и выскакиваю окна??
@@ -158,11 +152,9 @@ formCard.addEventListener("submit", (e) => {
 
   cardList.prepend(cardElement);
   closePopup(popupCard);
-  // e.submitter.classList.add("popup__save_inactive");
-  // e.submitter.disabled = false;
 });
 //??? тОЖЕ добавление карточки ???
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-// вытаскиваем валидатор для проверки всего 
+// вытаскиваем валидатор для проверки всего
