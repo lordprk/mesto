@@ -113,7 +113,6 @@ popupCloseButtonAuthor.addEventListener("click", () =>
 );
 formAuthor.addEventListener("submit", handleFormSubmitAuthor);
 popupCardOpenBtn.addEventListener("click", () => {
-  popupCard.querySelector(config.submitButtonSelector).disabled = true;
   openPopup(popupCard);
 });
 
