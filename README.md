@@ -34,6 +34,7 @@
 *Позицианирование absolute
 *Template
 *Validation
+*Webpack
 
 **Проект**
 Ссылка на проект
