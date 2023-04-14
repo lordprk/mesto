@@ -2,10 +2,10 @@ export default class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     // Находим все поля внутри формы, сделаем из них массив методом Array.from
-    this._inputSelector = Array.from(
+    this._inputList = Array.from(
       formElement.querySelectorAll(config.inputSelector)
     );
-    this._submitButtonSelector = formElement.querySelector(
+    this._buttonElement = formElement.querySelector(
       config.submitButtonSelector
     );
     this._formElement = formElement;
@@ -68,14 +68,14 @@ export default class FormValidator {
     }
   }
 
-  _createEvent() {
+  _setEventListeners() {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._inputSelector.forEach((item) => (item.value = ""));
+      this._inputList.forEach((item) => (item.value = ""));
       this._disableSubmitButton();
     });
-    this._inputList = this._inputSelector;
-    this._buttonElement = this._submitButtonSelector;
+    this._inputList = this._inputList;
+    this._buttonElement = this._buttonElement;
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
@@ -87,7 +87,7 @@ export default class FormValidator {
   /////
   // публичный метод настройки обработчиков событий для полей формы
   enableValidation() {
-    this._createEvent();
+    this._setEventListeners();
     this._disableSubmitButton();
   }
 }

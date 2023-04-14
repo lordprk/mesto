@@ -36,7 +36,7 @@ export default class Card {
 //добавляем ссылку и имя из альта- и возвращаем целый элемент
 
   //лайк
-  _addtoggleLike(e) {
+  _toggleLike(e) {
     e.target.classList.toggle("place__button-like_active");
   }
 //берем кнопку с функцией event и делаем свойсто нажатия 
@@ -58,7 +58,7 @@ export default class Card {
 
     element
       .querySelector(".place__button-like")
-      .addEventListener("click", this._addtoggleLike);
+      .addEventListener("click", this._toggleLike);
 
     element
       .querySelector(".place__button-delete")
