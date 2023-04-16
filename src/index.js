@@ -13,7 +13,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo";
-import Api from "../components/Api";
+// import Api from "../components/Api";
 
 //const popupWithFoto = new PopupWithImage(".popup-image");
 
@@ -98,15 +98,15 @@ popupOpenButtonAuthor.addEventListener("click", () => {
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 // вытаскиваем валидатор для проверки всего
-const options = {
-  url: `https://mesto.nomoreparties.co/v1/cohort-63`,
-  headers : {
-    authorization: "671d21ec-3690-46e2-9f78-45e9461232b9",
-  }
-}
+// const options = {
+//   url: `https://mesto.nomoreparties.co/v1/cohort-63`,
+//   headers : {
+//     authorization: "671d21ec-3690-46e2-9f78-45e9461232b9",
+//   }
+// }
 
-const api = new Api (options)
+// const api = new Api (options)
 
-api.getInfoUser().then((res) => {
-  console.log(res)
-})
+// api.getInfoUser().then((res) => {
+//   console.log(res)
+// })
