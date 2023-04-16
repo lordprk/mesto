@@ -27,6 +27,17 @@ export default class PopupWithForm extends Popup {
     console.log(formValues)
     return formValues;
   }
+
+  setInputValues(values) {
+      //пустой обьект
+      const formValues = [values.name, values.info];
+    
+      //Собираем значение со всех полей popup__input
+    this._inputList.forEach((input,i,arr) => {
+      input.value = formValues[i];
+      });
+  }
+
   //добавляет слушатель клика иконке закрытия попапа
   setEventListeners() {
     super.setEventListeners();
