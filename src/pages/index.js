@@ -2,22 +2,9 @@ import "./index.css";
 import {
   initialCards,
   popupAuthorElement,
-  formAuthor,
-  nameInput,
-  jobInput,
-  profileName,
-  profileJob,
   popupOpenButtonAuthor,
-  popupCloseButtonAuthor,
   popupCard,
-  formCard,
-  nameCardInput,
-  linkCardInput,
   popupCardOpenBtn,
-  popupCardCloseBtn,
-  popupImage,
-  popupImageCloseBtn,
-  cardList,
   config,
 } from "../utils/constants.js";
 import Card from "../components/Card.js";
@@ -26,6 +13,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo";
+import Api from "../components/Api";
 
 //const popupWithFoto = new PopupWithImage(".popup-image");
 
@@ -63,7 +51,14 @@ const sectionPlaces = new Section(
 
 sectionPlaces.renderItems();
 
-//Открытие попап для фото
+// //!!!!!
+// function handleFormSubmitAuthor(evt) {
+//   evt.preventDefault();
+//   profileName.textContent = nameInput.value;
+//   profileJob.textContent = jobInput.value;
+//   closePopup(popupAuthorElement);
+// }
+// //Открытие попап для фото
 
 function createCard(data) {
   const card = new Card(data, ".place-template", (title, src) => {
@@ -91,6 +86,8 @@ popupCardOpenBtn.addEventListener("click", () => {
 });
 
 popupOpenButtonAuthor.addEventListener("click", () => {
+  popupEditProfile.setInputValues(userInfo.getUserInfo());
+  editFormValidator.enableSubmitButton();
   popupEditProfile.open();
 });
 
@@ -101,3 +98,15 @@ popupOpenButtonAuthor.addEventListener("click", () => {
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 // вытаскиваем валидатор для проверки всего
+// const options = {
+//   url: `https://mesto.nomoreparties.co/v1/cohort-63`,
+//   headers : {
+//     authorization: "671d21ec-3690-46e2-9f78-45e9461232b9",
+//   }
+// }
+
+// const api = new Api (options)
+
+// api.getInfoUser().then((res) => {
+//   console.log(res)
+// })
