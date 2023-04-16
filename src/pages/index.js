@@ -13,7 +13,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo";
-import Api from "../components/Api";
+// import Api from "../components/Api";
 
 //const popupWithFoto = new PopupWithImage(".popup-image");
 
@@ -87,7 +87,6 @@ popupCardOpenBtn.addEventListener("click", () => {
 
 popupOpenButtonAuthor.addEventListener("click", () => {
   popupEditProfile.setInputValues(userInfo.getUserInfo());
-  editFormValidator.enableSubmitButton();
   popupEditProfile.open();
 });
 
