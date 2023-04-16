@@ -1,72 +1,101 @@
-export default class Card {
-  constructor(data, templateSelector, openPopupFoto) {
-    this._name = data.name;
-    this._link = data.link;
-    this._templateSelector = templateSelector;
-    this._openPopupFoto = openPopupFoto;
-  }
-//Собираем конструктор из функций () и свойств {}
+export class Card {
+  constructor(
+    { name, link, likes, _id, owner },
+    templateSelector,
+    _myId,
+    handleCardClick,
+    handleDeleteClick,
+    plusLikeClick,
+    minusLikeClick
+  ) {
+    this._name = name;
+    this._link = link;
+    this._likes = likes.length;
+    this._likesArr = likes;
+    this._id = _id;
+    this._ownerId = owner._id;
+    this._myId = _myId;
 
-
-  _getTemplate() {
-    const cardElement = document
-      .querySelector(this._templateSelector)
-      .content.querySelector(".place")
+    this._card = document
+      .querySelector(templateSelector)
+      .content.querySelector(".cards-list__card-container")
       .cloneNode(true);
 
-    return cardElement;
+    this._image = this._card.querySelector(".cards-list__card-image");
+    this._subname = this._card.querySelector(".cards-list__name");
+    this._likeBtn = this._card.querySelector(".cards-list__like");
+    this._trashBtn = this._card.querySelector(".cards-list__card-bin");
+    this._likesElement = this._card.querySelector(".cards-list__like-counter");
+
+    this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
+    this._plusLikeClick = plusLikeClick;
+    this._minusLikeClick = minusLikeClick;
   }
-//берем обьект, создаем контанту, получаем оттуда свойство, затем получаем
-//доступ к содержимому place и делаем копию, затем возвращаем константу обратно 
-  
-  generateCard() {
-    const element = this._getTemplate();
-    this._setEventListener(element);
 
-    const title = element.querySelector(".place__title").textContent = this._name;
-    const image = element.querySelector(".place__image");
-    image.src = this._link;
-    image.alt = this._name;
-
-    return element;
+  _setImageClickListener() {
+    this._image.addEventListener("click", this._handleCardClick);
   }
-//беерем обьект, и в нем делаем из элемента прошлый обьект, затем ищ него
-// выбераем  place title, и читаем его имя-выводим это в имя
-//так же делаем с cardFoto-выберая из него place_image, к нему
-//добавляем ссылку и имя из альта- и возвращаем целый элемент
 
-  //лайк
-  _toggleLike(e) {
-    e.target.classList.toggle("place__button-like_active");
+  _setTrashBtnListener() {
+    this._trashBtn.addEventListener("click", () => {
+      this._handleDeleteClick(this._id);
+    });
   }
-//берем кнопку с функцией event и делаем свойсто нажатия 
-//на place__button-like_active
 
-  //Удаление
-  _deleteCard(e) {
-    e.target.closest(".place").remove();
+  _setLikeBtnListener() {
+    this._likeBtn.addEventListener("click", () => {
+      if (!this._likeBtn.classList.contains("cards-list__like_active")) {
+        this._plusLikeClick(this._id);
+      } else if (this._likeBtn.classList.contains("cards-list__like_active")) {
+        this._minusLikeClick(this._id);
+      }
+    });
   }
-//берем кнопку с функцией event и делаем свойсто нажатия 
-//на .place - при нажатие удаляем файл
 
-  _setEventListener(element) {
-    element
-      .querySelector(".place__image")
-      .addEventListener("click", () => {
-        this._openPopupFoto(this._name, this._link);
-      });
+  _setEventListeners() {
+    this._setImageClickListener();
+    this._setTrashBtnListener();
+    this._setLikeBtnListener();
+  }
 
-    element
-      .querySelector(".place__button-like")
-      .addEventListener("click", this._toggleLike);
+  toggleLikeBtn() {
+    this._likeBtn.classList.toggle("cards-list__like_active");
+  }
 
-    element
-      .querySelector(".place__button-delete")
-      .addEventListener("click", this._deleteCard);
+  removeCard() {
+    this._card.remove();
+    this._card = null;
+  }
+
+  _handleDeleteBtnState() {
+    if (this._ownerId !== this._myId) {
+      this._trashBtn.classList.add("cards-list__card-bin_hidden");
+    }
+  }
+
+  setLikes(likes) {
+    this._likes = likes.length;
+    this._likesElement.textContent = this._likes;
+  }
+
+  _checkLikes() {
+    this._likesArr.forEach((like) => {
+      if (like._id === this._myId) {
+        this._likeBtn.classList.add("cards-list__like_active");
+      }
+    });
+  }
+
+  formCard() {
+    this._image.src = this._link;
+    this._subname.textContent = this._name;
+    this._image.alt = `Изображение места в ${this._name}`;
+    this._likesElement.textContent = this._likes;
+    this._checkLikes();
+    this._handleDeleteBtnState();
+    this._setEventListeners();
+
+    return this._card;
   }
 }
-//большой обьект и с функциями. 1 - берем place__image добавляем килик на 
-//нажатие картинкис именем и картинкой.??
-//2 это же элемент выбераем place__button-like и кликер который дает 
-//срабатывать this._addtoggleLike,
-//3 то же самое, только кнопка с удалялкой

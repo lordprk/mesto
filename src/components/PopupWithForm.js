@@ -1,63 +1,50 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, handleFormSubmit) {
+  constructor(popupSelector, submitter) {
     super(popupSelector);
-    this._handleFormSubmit = handleFormSubmit;
-
-    //Поиск формы
-    this._form = this._popup.querySelector(".popup__form");
-    //Поиск инпутов
-    this._inputList = this._form.querySelectorAll(".popup__input");
-    //Поиск сохр конп
-    this._button = this._form.querySelector(".popup__save");
+    this._popupForm = this._popup.querySelector(".popup__form");
+    this._submitter = submitter;
+    this._popupFormInputs = Array.from(
+      this._popup.querySelectorAll(".popup__input")
+    );
+    this._submitButton = this._popup.querySelector(".popup__button");
   }
 
-  //cобирает данные всех полей формы.
-  _getInputValues() {
-    //пустой обьект
-    const formValues = {};
+  changeText(text) {
+    this._submitButton.textContent = text;
+  }
 
-    //Собираем значение со всех полей popup__input
-    this._inputList.forEach((input,i,arr) => {
-      formValues[input.name] = input.value;
+  getNewSubmitter(newSubmitter) {
+    this._submitter = newSubmitter;
+  }
+
+  getInputValues() {
+    this._formValues = {};
+    this._popupFormInputs.forEach(
+      (input) => (this._formValues[input.name] = input.value)
+    );
+
+    return this._formValues;
+  }
+
+  setInputValues(data) {
+    this._popupFormInputs.forEach((input) => {
+      input.value = data[input.name];
     });
-
-    //возвращаем форму
-    console.log(formValues)
-    return formValues;
   }
 
-  setInputValues(values) {
-      //пустой обьект
-      const formValues = [values.name, values.info];
-    
-      //Собираем значение со всех полей popup__input
-    this._inputList.forEach((input,i,arr) => {
-      input.value = formValues[i];
-      });
-  }
-
-  //добавляет слушатель клика иконке закрытия попапа
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-    //Отменям это поведение?
-    const inputValues = this._getInputValues()
-    console.log(inputValues);
-    // добавим вызов _handleFormSubmit
-    // передадим обьект -результат _getInputValues
-    this._handleFormSubmit(inputValues);
-
-    this.close();
+    this._popupForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._submitter();
     });
   }
 
-  //закрытие попата
   close() {
     super.close();
-    // сбросить все поля
-    this._form.reset();
+
+    this._popupForm.reset();
   }
 }

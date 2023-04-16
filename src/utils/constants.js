@@ -1,60 +1,128 @@
-export const initialCards = [
-    {
-      name: "Архыз",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-    },
-    {
-      name: "Челябинская область",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-    },
-    {
-      name: "Иваново",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-    },
-    {
-      name: "Камчатка",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-    },
-    {
-      name: "Холмогорский район",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-    },
-    {
-      name: "Байкал",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-    },
-  ];
+import PopupWithImage from '../components/PopupWithImage.js';
+import {PopupWithConfirm} from '../components/PopupWithConfirm.js';
+import Api from '../components/Api.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import {createCard} from './functions.js';
 
-  //Переменные для редактирования профиля
-export const popupAuthorElement = document.querySelector("#popup__author");
-export const formAuthor = document.querySelector(".popup__form_type_author");
-export const nameInput = document.querySelector(".popup__input_name_profile-name");
-export const jobInput = document.querySelector(".popup__input_name_profile-caption");
-export const profileName = document.querySelector(".profile__title");
-export const profileJob = document.querySelector(".profile__subtitle");
-export const popupOpenButtonAuthor = document.querySelector(".profile__edit-button");
-export const popupCloseButtonAuthor = document.querySelector(".popup__button-close");
 
-//Переменные для редактирования карточек
-export const popupCard = document.querySelector(".popup_type_card");
-export const formCard = popupCard.querySelector(".popup__form_type_card");
-export const nameCardInput = formCard.querySelector(".popup__input_name_card-name");
-export const linkCardInput = formCard.querySelector(".popup__input_name_card-caption");
-export const popupCardOpenBtn = document.querySelector(".profile__add-button");
-export const popupCardCloseBtn = popupCard.querySelector(".popup__button-close");
+//попап демонстрации картинок
+export const imagePopup = new PopupWithImage('.popup_type_show-image');
 
-// Переменные для попапа с картинкой
-export const popupImage = document.querySelector(".popup-image");
-export const popupImageCloseBtn = document.querySelector(".popup-image__close");
+//API
+export const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
+    headers: {
+    authorization: '671d21ec-3690-46e2-9f78-45e9461232b9',
+    'Content-Type': 'application/json'
+  }
+});
 
-//Переменные для темпла
-export const cardList = document.querySelector(".places");
+//экземляр класса управления данными профиля
+export const userInfo = new UserInfo('.profile__person', '.profile__job', '.profile__avatar');
 
-export const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save",
-  inactiveButtonClass: "popup__save_inactive",
-  inputErrorClass: "popup__input_type_active",
-  errorClass: "popup__info-error_active",
+//экземляр класса отрисовки начальных карточек
+export const cardSection = new Section({
+    items: [],
+    renderer: (item) => {
+        return createCard(item);
+    }
+}, '.cards-list');
+
+//попап добавления карточек
+export const cardForm = new PopupWithForm(
+    '.popup_type_card-add',
+    () => {
+        cardForm.changeText('Сохранение...');
+        const cardValues = cardForm.getInputValues();
+        api.postNewCard(cardValues)
+        .then(cardData => {
+            const card = createCard(cardData);
+            cardSection.addItem(card);
+            cardForm.close();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            cardForm.changeText('Сохранить');
+            
+        });
+    }
+);
+
+//попап редактирования профиля
+export const profileForm = new PopupWithForm(
+    '.popup_type_profile-edit',
+    (evt) => {
+        //evt.preventDefault();
+        profileForm.changeText('Сохранение...');
+        const profileData = profileForm.getInputValues();
+        api.patchUserInfo(profileData)
+        .then(data => {
+            userInfo.setUserInfo(data);
+            profileForm.close();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            profileForm.changeText('Сохранить');
+            
+        });
+    }
+);
+
+//попап изменения аватара
+export const avatarForm = new PopupWithForm(
+    '.popup_type_avatar-save',
+    (evt) => {
+        //evt.preventDefault();
+        avatarForm.changeText('Сохранение...');
+        const avatarData = avatarForm.getInputValues();
+        api.setAvatar(avatarData)
+        .then(data => {
+            userInfo.setAvatarSrc(data);
+            avatarForm.close();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            avatarForm.changeText('Сохранить');
+            
+        });
+    }
+);
+
+//попап подтверждения удаления карточкчи
+export const confirmPopup = new PopupWithConfirm('.popup_type_confirm');
+
+//конфиг для создания экземпляра валидации
+export const validationConfig = {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_error'
 };
+
+//формы для валидации
+export const popupAddCardForm = document.querySelector('.popup_type_card-add .popup__form');
+export const popupEditProfileForm = document.querySelector('.popup_type_profile-edit .popup__form');
+export const popupEditAvatarForm = document.querySelector('.popup_type_avatar-save .popup__form');
+
+//экземляр класса валидации формы редактирования профиля
+export const popupEditProfileFormValidator = new FormValidator(validationConfig, popupEditProfileForm);
+
+//экземляр класса валидации формы добавления карточек
+export const popupAddCardFormValidator = new FormValidator(validationConfig, popupAddCardForm); 
+
+//экземляр класса валидации формы обновления аватара 
+export const popupEditAvatarFormValidator = new FormValidator(validationConfig, popupEditAvatarForm);
+
+//кнопки профиля и добавления карточек
+export const profileEditBtn = document.querySelector('.profile__edit');
+export const cardAddBtn = document.querySelector('.profile__add-button');
+export const avatarBtn = document.querySelector('.profile__avatar-update');
